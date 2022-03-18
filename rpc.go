@@ -6,6 +6,7 @@ import (
 	"log"
 	aux "mockbbld/auxpow"
 	"mockbbld/common"
+	"mockbbld/config"
 	"mockbbld/pow"
 	"net/http"
 	"strconv"
@@ -37,11 +38,11 @@ type SubmitAuxArgs struct {
 
 func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, reply *AuxBlock) error {
 
-	var baseTx pow.Transaction
+	//var baseTx pow.Transaction
 	blocks := bc.GetBlocks()
 	block := blocks[len(blocks)-1]
-	baseTx, _ = pow.CreateCoinbaseTx(args.Paytoaddress)
-	bc.Addblock([]byte(fmt.Sprintf("%v", baseTx))) //add baseTx to block
+	//baseTx, _ = pow.CreateCoinbaseTx(args.Paytoaddress)
+	//bc.Addblock([]byte(fmt.Sprintf("%v", baseTx))) //add baseTx to block
 
 	//new_pow := pow.NewPOW(block, difficulty)
 	//hash := new_pow.PreparetoMine()
@@ -109,11 +110,13 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	return nil
 }
 
-func startRPC() {
+func startRPC(config config.Config) {
+	//fmt.Println("config: ", config, "Host-----: ", config.Host)
 	log.Printf("Starting RPC Server on :10000\n")
 	newServer := rpc.NewServer()
 	newServer.RegisterCodec(json.NewCodec(), "application/json")
 	newServer.RegisterService(new(BBLService), "")
 	http.Handle("/rpc", newServer)
-	http.ListenAndServe("localhost:10000", nil)
+	//ipport :=
+	http.ListenAndServe(config.Host+":"+config.Port, nil)
 }

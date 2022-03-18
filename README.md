@@ -5,7 +5,6 @@ Go 1.16 or newer.
 
 Ensure Go was installed properly and is a supported version:
 
-
 ```
 $ go version
 $ go env GOROOT GOPATH
@@ -23,14 +22,11 @@ $ cp -rf mockbbld/* $GOPATH/src/github.com/
 ```
 
 ### Build
-
 ```
 $ go build
 ```
 
-
 ### Run
-
 ```
 $ ./mockbbld
 
@@ -47,7 +43,6 @@ Nonce : 0
 ```
 
 ### Test
-
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"method\":\"BBLService.Createauxblock\",\"params\":[{\"paytoaddress\":\"Ef4UcaHwvFrFzzsyVf5YH4JBWgYgUqfTAB\"}],\"id\":\"1\"}" http://127.0.0.1:10000/rpc
 ```

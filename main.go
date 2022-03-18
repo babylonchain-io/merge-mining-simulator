@@ -1,9 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"mockbbld/blockchain"
+	"mockbbld/config"
 	"mockbbld/pow"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 var bc *blockchain.Blockchain
@@ -19,6 +23,17 @@ func main() {
 	pow.OpenDB()
 	defer pow.CloseDB()
 
+	var config config.Config
+
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	viper.Unmarshal(&config)
+
 	go func() {
 		for {
 			time.Sleep(30 * time.Second)
@@ -29,5 +44,5 @@ func main() {
 		}
 	}()
 	// start rpc
-	startRPC()
+	startRPC(config)
 }
