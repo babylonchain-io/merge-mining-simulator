@@ -38,12 +38,7 @@ func newBlock(data []byte, prehash []byte, height string, difficulty uint64) *po
 	block.Height = height
 
 	currentHight = currentHight + 1
-
 	//block.SaveBlock()
-
-	//GetBlock(height)
-	//var bc Block
-	//List("block")
 	return &block
 }
 

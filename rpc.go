@@ -43,8 +43,9 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	baseTx, _ = pow.CreateCoinbaseTx(args.Paytoaddress)
 	bc.Addblock([]byte(fmt.Sprintf("%v", baseTx))) //add baseTx to block
 
-	new_pow := pow.NewPOW(block, difficulty)
-	hash := new_pow.PreparetoMine()
+	//new_pow := pow.NewPOW(block, difficulty)
+	//hash := new_pow.PreparetoMine()
+	hash := block.Hash
 	hashstring := fmt.Sprintf("%x", hash)
 
 	blockHash := pow.BlockHash{

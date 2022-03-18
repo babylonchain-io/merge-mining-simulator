@@ -21,7 +21,7 @@ func main() {
 
 	go func() {
 		for {
-			time.Sleep(5 * time.Second)
+			time.Sleep(30 * time.Second)
 			i = i + 1
 			bc.Addblock([]byte(string(i)))
 			//fmt.Printf("i ---------- %d\n", i)
