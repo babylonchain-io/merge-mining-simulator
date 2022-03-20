@@ -164,9 +164,7 @@ func (ap *AuxPow) Check(hashAuxBlock *common.Uint256, chainID int) bool {
 
 	// reverse the hashAuxBlock
 	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
-
 	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
-
 	auxRootHash := GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
 
 	script := ap.ParCoinbaseTx.TxIn[0].SignatureScript

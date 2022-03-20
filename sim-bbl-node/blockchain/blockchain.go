@@ -18,7 +18,7 @@ type Blockchain struct {
 	difficulty uint64
 }
 
-func newBlock(data []byte, prehash []byte, height string, difficulty uint64) *pow.Block {
+func newBlock(data []byte, prehash []byte, height uint32, difficulty uint64) *pow.Block {
 	block := pw.Block{
 		Version:       00,
 		MerkelRoot:    []byte{},
@@ -28,7 +28,7 @@ func newBlock(data []byte, prehash []byte, height string, difficulty uint64) *po
 		PrevBlockHash: prehash,
 		Data:          data,
 		Hash:          prehash,
-		Height:        "0",
+		Height:        0,
 	}
 
 	pow := pw.NewPOW(&block, difficulty)
@@ -44,7 +44,7 @@ func newBlock(data []byte, prehash []byte, height string, difficulty uint64) *po
 
 func NewblockChain(difficulty uint64) *Blockchain {
 	var bc Blockchain
-	block := newBlock([]byte(gnnesinfo), []byte{}, "0", difficulty)
+	block := newBlock([]byte(gnnesinfo), []byte{}, 0, difficulty)
 	bc.blocks = append(bc.blocks, block)
 	bc.difficulty = difficulty
 	return &bc
@@ -53,7 +53,7 @@ func NewblockChain(difficulty uint64) *Blockchain {
 // add new block
 func (this *Blockchain) Addblock(data []byte) {
 	lastblockhash := this.blocks[len(this.blocks)-1].Hash
-	block := newBlock(data, lastblockhash, string(len(this.blocks)-1), this.difficulty)
+	block := newBlock(data, lastblockhash, uint32(len(this.blocks)-1), this.difficulty)
 	this.blocks = append(this.blocks, block)
 	block.PrintBlockInfo()
 }

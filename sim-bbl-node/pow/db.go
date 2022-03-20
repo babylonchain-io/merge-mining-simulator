@@ -94,7 +94,7 @@ func (b *Block) SaveBlock() error {
 		if err != nil {
 			return fmt.Errorf("could not encode Block %s: %s", b.Height, err)
 		}
-		err = block.Put([]byte(b.Height), enc)
+		err = block.Put(i32tob(b.Height), enc)
 		return err
 	})
 	return err
@@ -106,6 +106,22 @@ func (p *Block) encode() ([]byte, error) {
 		return nil, err
 	}
 	return enc, nil
+}
+
+func i32tob(val uint32) []byte {
+	r := make([]byte, 4)
+	for i := uint32(0); i < 4; i++ {
+		r[i] = byte((val >> (8 * i)) & 0xff)
+	}
+	return r
+}
+
+func btoi32(val []byte) uint32 {
+	r := uint32(0)
+	for i := uint32(0); i < 4; i++ {
+		r |= uint32(val[i]) << (8 * i)
+	}
+	return r
 }
 
 func decode(data []byte) (map[string]interface{}, error) {

@@ -9,7 +9,6 @@ import (
 	"mockbbld/config"
 	"mockbbld/pow"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/rpc/v2"
 	"github.com/gorilla/rpc/v2/json"
@@ -43,7 +42,6 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	block := blocks[len(blocks)-1]
 	//baseTx, _ = pow.CreateCoinbaseTx(args.Paytoaddress)
 	//bc.Addblock([]byte(fmt.Sprintf("%v", baseTx))) //add baseTx to block
-
 	//new_pow := pow.NewPOW(block, difficulty)
 	//hash := new_pow.PreparetoMine()
 	hash := block.Hash
@@ -54,14 +52,14 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	}
 	blockHash.SaveBlockHash()
 
-	height, err := strconv.ParseUint(block.Height, 10, 32)
-	if err != nil {
-		fmt.Println(err)
-	}
+	//height, err := strconv.ParseUint(block.Height, 10, 32)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
 
 	auxBlock := AuxBlock{
 		ChainID:           int(249),
-		Height:            uint32(height + 1),
+		Height:            block.Height + 1,
 		CoinBaseValue:     Fixed64(175799086),
 		Bits:              "1d36c855",
 		Hash:              fmt.Sprintf("%x", hash),
@@ -101,7 +99,7 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	}
 
 	if ok := aux.Check(blockHash, 6); !ok {
-		fmt.Printf("auxpow1 checking failed\n\n\n\n\n\n")
+		fmt.Printf("auxpow checking failed\n\n\n\n\n\n")
 	}
 
 	//fmt.Printf("Auxpow : %s\n", auxPow)

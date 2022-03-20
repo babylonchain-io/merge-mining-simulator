@@ -6,7 +6,7 @@ host = "127.0.0.1"
 port = 10000
 
 #miner time
-mtime = "30s"
+mtime = "5s"
 
 # difficulty
 difficulty = 5

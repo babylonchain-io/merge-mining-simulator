@@ -17,7 +17,7 @@ type Block struct {
 	PrevBlockHash []byte
 	Data          []byte
 	Hash          []byte
-	Height        string
+	Height        uint32
 }
 
 type BlockHash struct {
