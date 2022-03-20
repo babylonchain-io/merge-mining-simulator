@@ -22,7 +22,7 @@ func main() {
 	pow.OpenDB()
 	defer pow.CloseDB()
 
-	//read coonfig
+	//read config file
 	var config config.Config
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
