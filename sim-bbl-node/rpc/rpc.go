@@ -1,10 +1,11 @@
-package main
+package rpc
 
 import (
 	"bytes"
 	"fmt"
 	"log"
 	aux "mockbbld/auxpow"
+	"mockbbld/blockchain"
 	"mockbbld/common"
 	"mockbbld/config"
 	"mockbbld/pow"
@@ -14,20 +15,12 @@ import (
 	"github.com/gorilla/rpc/v2/json"
 )
 
-type Fixed64 int64
+var bc *blockchain.Blockchain
+
 type BBLService struct{}
 
 type CreateAuxHashArgs struct {
 	Paytoaddress string
-}
-
-type AuxBlock struct {
-	ChainID           int     `json:"chainid"`
-	Height            uint32  `json:"height"`
-	CoinBaseValue     Fixed64 `json:"coinbasevalue"`
-	Bits              string  `json:"bits"`
-	Hash              string  `json:"hash"`
-	PreviousBlockHash string  `json:"previousblockhash"`
 }
 
 type SubmitAuxArgs struct {
@@ -35,7 +28,7 @@ type SubmitAuxArgs struct {
 	Auxpow    string
 }
 
-func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, reply *AuxBlock) error {
+func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, reply *aux.AuxBlock) error {
 
 	//var baseTx pow.Transaction
 	blocks := bc.GetBlocks()
@@ -52,15 +45,10 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	}
 	blockHash.SaveBlockHash()
 
-	//height, err := strconv.ParseUint(block.Height, 10, 32)
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-
-	auxBlock := AuxBlock{
+	auxBlock := aux.AuxBlock{
 		ChainID:           int(249),
 		Height:            block.Height + 1,
-		CoinBaseValue:     Fixed64(175799086),
+		CoinBaseValue:     common.Fixed64(175799086),
 		Bits:              "1d36c855",
 		Hash:              fmt.Sprintf("%x", hash),
 		PreviousBlockHash: fmt.Sprintf("%x", block.Hash),
@@ -89,26 +77,24 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 		*reply = false
 		fmt.Println(jsonMap)
 	}
-
 	//aux pow check
 	auxPow := args.Auxpow
-
 	buf, _ := common.HexStringToBytes(auxPow)
 	if err := aux.Deserialize(bytes.NewReader(buf)); err != nil {
+		*reply = false
 		fmt.Printf("auxpow deserialization failed : %s\n", aux)
 	}
 
 	if ok := aux.Check(blockHash, 6); !ok {
+		*reply = false
 		fmt.Printf("auxpow checking failed\n\n\n\n\n\n")
 	}
-
-	//fmt.Printf("Auxpow : %s\n", auxPow)
-
 	*reply = true
 	return nil
 }
 
-func startRPC(config config.Config) {
+func StartRPC(config config.Config, c *blockchain.Blockchain) {
+	bc = c
 	//fmt.Println("config: ", config, "Host-----: ", config.Host)
 	log.Printf("Starting RPC Server on :10000\n")
 	newServer := rpc.NewServer()

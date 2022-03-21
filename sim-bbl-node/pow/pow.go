@@ -33,7 +33,6 @@ func NewPOW(block *Block, difficulty uint64) *ProofOfWork {
 }
 
 func (block *Block) PrintBlockInfo() {
-
 	fmt.Printf("=========Block Hight %d=========\n", block.Height)
 	fmt.Printf("Version : %d\n", block.Version)
 	fmt.Printf("PrevBlockHash : %x\n", block.PrevBlockHash)
@@ -78,7 +77,6 @@ func (pow *ProofOfWork) PreparetoMine() []byte {
 	return hash[:]
 }
 
-//pow挖矿方法,返回两个参数，一个是碰撞成功的数字nonce，另一个是当前区块哈希值
 func (pow *ProofOfWork) Mine() (uint64, []byte) {
 
 	var nonce uint64

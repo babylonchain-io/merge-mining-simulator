@@ -6,14 +6,12 @@ import (
 	"mockbbld/config"
 	"mockbbld/logger"
 	"mockbbld/pow"
+	"mockbbld/rpc"
+
 	"time"
 
 	"github.com/spf13/viper"
 )
-
-var bc *blockchain.Blockchain
-
-//const difficulty = 5
 
 var i int
 
@@ -34,7 +32,7 @@ func main() {
 	}
 	viper.Unmarshal(&config)
 
-	bc = blockchain.NewblockChain(config.Difficulty)
+	bc := blockchain.NewblockChain(config.Difficulty)
 
 	// start to mine
 	go func() {
@@ -52,5 +50,5 @@ func main() {
 	//logger.Error.Println("error")
 
 	// start rpc
-	startRPC(config)
+	rpc.StartRPC(config, bc)
 }
