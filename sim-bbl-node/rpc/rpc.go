@@ -54,6 +54,7 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 		PreviousBlockHash: fmt.Sprintf("%x", block.Hash),
 	}
 	*reply = auxBlock
+	logger.Info.Println("return aux block hash: [" + hashstring + "] to: [" + r.Host + "]")
 	return nil
 }
 
@@ -97,7 +98,7 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 
 func StartRPC(config config.Config, c *blockchain.Blockchain) {
 	bc = c
-	logger.Info.Println("Starting RPC Server on :10000\n")
+	logger.Info.Println("starting prc server on port: " + config.Port)
 	newServer := rpc.NewServer()
 	newServer.RegisterCodec(json.NewCodec(), "application/json")
 	newServer.RegisterService(new(BBLService), "")

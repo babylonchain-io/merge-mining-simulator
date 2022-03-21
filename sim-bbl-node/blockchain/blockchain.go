@@ -55,7 +55,7 @@ func (this *Blockchain) Addblock(data []byte) {
 	lastblockhash := this.blocks[len(this.blocks)-1].Hash
 	block := newBlock(data, lastblockhash, uint32(len(this.blocks)-1), this.difficulty)
 	this.blocks = append(this.blocks, block)
-	block.PrintBlockInfo()
+	//block.PrintBlockInfo()
 }
 
 func (this *Blockchain) GetBlocks() []*pow.Block {
