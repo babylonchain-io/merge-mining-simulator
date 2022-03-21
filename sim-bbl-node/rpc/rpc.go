@@ -62,27 +62,24 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	var aux aux.AuxPow
 	blockHashHex := args.Blockhash
 
-	blockHash, err := common.Uint256FromHexString(blockHashHex)
+	//block hash check, if blockHashHex is not in our database, return false
+	blockhashexit, err := CheckBlockHash(blockHashHex)
 	if err != nil {
-		fmt.Printf("%s", "bad blockhash")
-	}
-	jsonMap, err := pow.GetBlockHash(blockHashHex)
-
-	if err != nil {
-		*reply = false
-		fmt.Println(err)
+		*reply = blockhashexit
+		return nil
 	}
 
-	if jsonMap == nil {
-		*reply = false
-		fmt.Println(jsonMap)
-	}
 	//aux pow check
 	auxPow := args.Auxpow
 	buf, _ := common.HexStringToBytes(auxPow)
 	if err := aux.Deserialize(bytes.NewReader(buf)); err != nil {
 		*reply = false
 		fmt.Printf("auxpow deserialization failed : %s\n", aux)
+	}
+
+	blockHash, err := common.Uint256FromHexString(blockHashHex)
+	if err != nil {
+		fmt.Printf("%s", "bad blockhash")
 	}
 
 	if ok := aux.Check(blockHash, 6); !ok {
