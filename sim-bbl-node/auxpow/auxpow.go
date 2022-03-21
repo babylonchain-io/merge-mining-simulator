@@ -18,11 +18,11 @@ var (
 type AuxPow struct {
 	AuxMerkleBranch   []common.Uint256
 	AuxMerkleIndex    int
-	ParCoinbaseTx     BtcTx
-	ParCoinBaseMerkle []common.Uint256
+	ParCoinbaseTx     BtcTx            //bitcoin transaction
+	ParCoinBaseMerkle []common.Uint256 //The merkle branch linking the coinbase_txn to the parent block's merkle_root
 	ParMerkleIndex    int
-	ParBlockHeader    BtcHeader
-	ParentHash        common.Uint256
+	ParBlockHeader    BtcHeader      //Parent block header
+	ParentHash        common.Uint256 //
 }
 
 func NewAuxPow(AuxMerkleBranch []common.Uint256, AuxMerkleIndex int,
@@ -167,12 +167,14 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 		return false
 	}
 
+	//check nonce, tbd
+	//check the coinbase
 	if GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) != ap.ParBlockHeader.MerkleRoot {
-		logger.Error.Println("merkle root failed")
+		logger.Error.Println("merkle root failed, coinbase is not in blockheader")
 		return false
 	}
 
-	// reverse the hashAuxBlock
+	//reverse the hashAuxBlock
 	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
 	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
 	auxRootHash := GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
@@ -188,6 +190,7 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	rootHashIndex := strings.Index(scriptStr, auxRootHashReverseStr)
 
 	if (headerIndex == -1) || (rootHashIndex == -1) {
+		logger.Error.Println("hashAuxBlock is not in coinbase")
 		return false
 	}
 
