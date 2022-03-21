@@ -42,12 +42,9 @@ func main() {
 			i = i + 1
 			bc.Addblock([]byte(string(i)))
 			logger.Info.Println("info")
-			//fmt.Printf("i ---------- %d\n", i)
 			//mychan1 <- "output1"
 		}
 	}()
-
-	//logger.Error.Println("error")
 
 	// start rpc
 	rpc.StartRPC(config, bc)

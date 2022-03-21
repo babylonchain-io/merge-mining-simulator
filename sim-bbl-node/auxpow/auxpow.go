@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"mockbbld/common"
+	"mockbbld/logger"
 )
 
 var (
@@ -156,9 +157,18 @@ func (ap *AuxPow) Deserialize(r io.Reader) error {
 	return nil
 }
 
-func (ap *AuxPow) Check(hashAuxBlock *common.Uint256, chainID int) bool {
+func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
+
+	var hashAuxBlock *common.Uint256
+
+	hashAuxBlock, err := common.Uint256FromHexString(blockHashHex)
+	if err != nil {
+		logger.Error.Println("hex string to uint256 failed")
+		return false
+	}
 
 	if GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) != ap.ParBlockHeader.MerkleRoot {
+		logger.Error.Println("merkle root failed")
 		return false
 	}
 
@@ -202,6 +212,7 @@ func (ap *AuxPow) Check(hashAuxBlock *common.Uint256, chainID int) bool {
 
 	nonce := binary.LittleEndian.Uint32(script[rootHashIndex/2+4 : rootHashIndex/2+8])
 	if ap.AuxMerkleIndex != GetExpectedIndex(nonce, chainID, merkleHeight) {
+		logger.Error.Println("expected index failed")
 		return false
 	}
 	return true

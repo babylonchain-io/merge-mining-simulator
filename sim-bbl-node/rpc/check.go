@@ -1,7 +1,6 @@
 package rpc
 
 import (
-	"fmt"
 	"mockbbld/pow"
 )
 
@@ -13,12 +12,10 @@ func CheckBlockHash(blockHashHex string) (bool, error) {
 
 	if err != nil {
 		blockhashexit = false
-		fmt.Println(err)
 	}
 
 	if jsonMap == nil {
 		blockhashexit = false
 	}
-
 	return blockhashexit, err
 }

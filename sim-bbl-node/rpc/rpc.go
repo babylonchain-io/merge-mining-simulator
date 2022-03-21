@@ -3,11 +3,11 @@ package rpc
 import (
 	"bytes"
 	"fmt"
-	"log"
 	aux "mockbbld/auxpow"
 	"mockbbld/blockchain"
 	"mockbbld/common"
 	"mockbbld/config"
+	"mockbbld/logger"
 	"mockbbld/pow"
 	"net/http"
 
@@ -61,43 +61,46 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 
 	var aux aux.AuxPow
 	blockHashHex := args.Blockhash
+	*reply = true
 
 	//block hash check, if blockHashHex is not in our database, return false
 	blockhashexit, err := CheckBlockHash(blockHashHex)
 	if err != nil {
-		*reply = blockhashexit
+		*reply = false
+		logger.Error.Println("block database error")
+		return nil
+	}
+	if !blockhashexit {
+		*reply = false
+		logger.Error.Println("not found block hash")
 		return nil
 	}
 
-	//aux pow check
+	//auxpow deserialization
 	auxPow := args.Auxpow
 	buf, _ := common.HexStringToBytes(auxPow)
 	if err := aux.Deserialize(bytes.NewReader(buf)); err != nil {
 		*reply = false
-		fmt.Printf("auxpow deserialization failed : %s\n", aux)
+		logger.Error.Println("auxpow deserialization failed")
+		return nil
 	}
 
-	blockHash, err := common.Uint256FromHexString(blockHashHex)
-	if err != nil {
-		fmt.Printf("%s", "bad blockhash")
-	}
-
-	if ok := aux.Check(blockHash, 6); !ok {
+	//auxpow check
+	if ok := aux.Check(blockHashHex, 6); !ok {
 		*reply = false
-		fmt.Printf("auxpow checking failed\n\n\n\n\n\n")
+		logger.Error.Println("auxpow checking failed")
+		return nil
 	}
-	*reply = true
+
 	return nil
 }
 
 func StartRPC(config config.Config, c *blockchain.Blockchain) {
 	bc = c
-	//fmt.Println("config: ", config, "Host-----: ", config.Host)
-	log.Printf("Starting RPC Server on :10000\n")
+	logger.Info.Println("Starting RPC Server on :10000\n")
 	newServer := rpc.NewServer()
 	newServer.RegisterCodec(json.NewCodec(), "application/json")
 	newServer.RegisterService(new(BBLService), "")
 	http.Handle("/rpc", newServer)
-	//ipport :=
 	http.ListenAndServe(config.Host+":"+config.Port, nil)
 }
