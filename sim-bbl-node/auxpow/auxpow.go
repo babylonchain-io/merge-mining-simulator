@@ -163,7 +163,7 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 
 	hashAuxBlock, err := common.Uint256FromHexString(blockHashHex)
 	if err != nil {
-		logger.Error.Println("hex string to uint256 failed")
+		logger.Error.Println("auxpow checking failed, hex string to uint256 failed")
 		return false
 	}
 
@@ -173,25 +173,25 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 
 	// hash should be less that targetDifficulty
 	if common.HashToBig(&hash).Cmp(targetDifficulty) > 0 {
-		logger.Error.Println("difficulty is not satified for bbld's requirement")
+		logger.Error.Println("auxpow checking failed, difficulty is not satified for bbld's requirement")
 		return false
 	}
 
 	// check if coinbase is in btc block header
 	if !ap.CoinbaseInBtcHeader() {
-		logger.Error.Println("merkle root failed, coinbase is not in btc block header")
+		logger.Error.Println("auxpow checking failed, merkle root failed, coinbase is not in btc block header")
 		return false
 	}
 
 	// check if block is in Coinbase
 	if !ap.AuxBlockHashInCoinbase(hashAuxBlock) {
-		logger.Error.Println("hashAuxBlock is not in coinbase")
+		logger.Error.Println("auxpow checking failed, hashAuxBlock is not in coinbase")
 		return false
 	}
 
 	// check if auxwork is in mining merkle tree
 	if !ap.AuxWorkInMiningMerkleTree(hashAuxBlock, chainID) {
-		logger.Error.Println("auxwork not in merkle tree")
+		logger.Error.Println("auxpow checking failed, auxwork not in merkle tree")
 		return false
 	}
 
@@ -222,23 +222,19 @@ func (ap *AuxPow) AuxBlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
 	rootHashIndex := strings.Index(scriptStr, auxRootHashReverseStr)
 
 	if (headerIndex == -1) || (rootHashIndex == -1) {
-		logger.Error.Println("hashAuxBlock 260 is not in coinbase")
 		return false
 	}
 
 	if strings.Index(scriptStr[headerIndex+2:], pchMergedMiningHeaderStr) != -1 {
-		logger.Error.Println("hashAuxBlock 265 is not in coinbase")
 		return false
 	}
 
 	if headerIndex+len(pchMergedMiningHeaderStr) != rootHashIndex {
-		logger.Error.Println("hashAuxBlock 270 is not in coinbase")
 		return false
 	}
 
 	rootHashIndex += len(auxRootHashReverseStr)
 	if len(scriptStr)-rootHashIndex < 8 {
-		logger.Error.Println("hashAuxBlock 276 is not in coinbase")
 		return false
 	}
 	return true
@@ -267,7 +263,6 @@ func (ap *AuxPow) AuxWorkInMiningMerkleTree(hashAuxBlock *common.Uint256, chainI
 
 	nonce := binary.LittleEndian.Uint32(script[rootHashIndex/2+4 : rootHashIndex/2+8])
 	if ap.AuxMerkleIndex != GetExpectedIndex(nonce, chainID, merkleHeight) {
-		logger.Error.Println("expected index failed")
 		return false
 	}
 

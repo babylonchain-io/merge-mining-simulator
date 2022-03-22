@@ -66,6 +66,8 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	blockHashHex := args.Blockhash
 	*reply = true
 
+	logger.Info.Println("submit auxblock: [" + args.Auxpow + "] from: [" + r.Host + "]")
+
 	//block hash check, if blockHashHex is not in our database, return false
 	blockhashexit, err := CheckBlockHash(blockHashHex)
 	if err != nil {
@@ -89,9 +91,9 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	}
 
 	//auxpow check
-	if ok := aux.Check(blockHashHex, 8); !ok {
+	if ok := aux.Check(blockHashHex, 6); !ok {
 		*reply = false
-		logger.Error.Println("auxpow checking failed")
+		//logger.Error.Println("auxpow checking failed")
 		return nil
 	}
 	return nil
