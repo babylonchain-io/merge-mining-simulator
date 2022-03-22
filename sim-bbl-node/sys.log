@@ -6,3 +6,177 @@ INFO: 2022/03/21 15:59:07 main.go:47: generate block, height: 1
 INFO: 2022/03/21 15:59:10 rpc.go:57: return aux block hash: [4f1b672e2b1a357b30de01b06b41a2c3b9bb740d4bd416231cdbc98683846f03] to: [127.0.0.1:10000]
 INFO: 2022/03/21 15:59:12 main.go:47: generate block, height: 2
 INFO: 2022/03/21 15:59:12 rpc.go:57: return aux block hash: [4f1b672e2b1a357b30de01b06b41a2c3b9bb740d4bd416231cdbc98683846f03] to: [127.0.0.1:10000]
+INFO: 2022/03/21 23:12:23 main.go:22: starting to open database
+INFO: 2022/03/21 23:12:23 main.go:35: starting to read config file
+INFO: 2022/03/21 23:12:23 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/21 23:12:23 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/21 23:12:28 main.go:47: generate block, height: 1
+INFO: 2022/03/21 23:12:33 main.go:47: generate block, height: 2
+INFO: 2022/03/21 23:12:38 main.go:47: generate block, height: 3
+INFO: 2022/03/21 23:12:43 main.go:47: generate block, height: 4
+INFO: 2022/03/21 23:12:48 main.go:47: generate block, height: 5
+INFO: 2022/03/21 23:12:53 main.go:47: generate block, height: 6
+INFO: 2022/03/21 23:12:58 main.go:47: generate block, height: 7
+INFO: 2022/03/21 23:13:03 main.go:47: generate block, height: 8
+ERROR: 2022/03/21 23:13:05 auxpow.go:198: hashAuxBlock is not in coinbase
+ERROR: 2022/03/21 23:13:05 rpc.go:92: auxpow checking failed
+INFO: 2022/03/21 23:13:08 main.go:47: generate block, height: 9
+INFO: 2022/03/21 23:13:13 main.go:47: generate block, height: 10
+INFO: 2022/03/21 23:13:18 main.go:47: generate block, height: 11
+INFO: 2022/03/21 23:13:23 main.go:47: generate block, height: 12
+INFO: 2022/03/22 09:41:26 main.go:22: starting to open database
+INFO: 2022/03/22 09:41:26 main.go:35: starting to read config file
+INFO: 2022/03/22 09:41:26 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 09:41:26 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 09:41:31 main.go:47: generate block, height: 1
+ERROR: 2022/03/22 09:41:34 rpc.go:92: auxpow checking failed
+INFO: 2022/03/22 09:41:36 main.go:47: generate block, height: 2
+INFO: 2022/03/22 09:41:41 main.go:47: generate block, height: 3
+INFO: 2022/03/22 09:42:41 main.go:22: starting to open database
+INFO: 2022/03/22 09:42:41 main.go:35: starting to read config file
+INFO: 2022/03/22 09:42:41 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 09:42:41 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 09:43:00 rpc.go:92: auxpow checking failed
+INFO: 2022/03/22 09:43:00 main.go:47: generate block, height: 1
+INFO: 2022/03/22 09:43:34 main.go:22: starting to open database
+INFO: 2022/03/22 09:43:34 main.go:35: starting to read config file
+INFO: 2022/03/22 09:43:34 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 09:43:34 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 09:58:05 main.go:22: starting to open database
+INFO: 2022/03/22 09:58:05 main.go:35: starting to read config file
+INFO: 2022/03/22 09:58:05 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 09:58:05 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 09:58:09 rpc.go:92: auxpow checking failed
+INFO: 2022/03/22 09:58:10 main.go:47: generate block, height: 1
+INFO: 2022/03/22 09:58:15 main.go:47: generate block, height: 2
+INFO: 2022/03/22 09:58:48 main.go:22: starting to open database
+INFO: 2022/03/22 09:58:48 main.go:35: starting to read config file
+INFO: 2022/03/22 09:58:48 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 09:58:48 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 09:58:51 rpc.go:92: auxpow checking failed
+INFO: 2022/03/22 09:58:53 main.go:47: generate block, height: 1
+INFO: 2022/03/22 09:58:58 main.go:47: generate block, height: 2
+INFO: 2022/03/22 09:59:03 main.go:47: generate block, height: 3
+INFO: 2022/03/22 09:59:08 main.go:47: generate block, height: 4
+INFO: 2022/03/22 10:00:42 main.go:22: starting to open database
+INFO: 2022/03/22 10:00:42 main.go:35: starting to read config file
+INFO: 2022/03/22 10:00:42 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 10:00:42 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 10:00:47 main.go:47: generate block, height: 1
+INFO: 2022/03/22 10:00:52 main.go:47: generate block, height: 2
+INFO: 2022/03/22 10:00:57 main.go:47: generate block, height: 3
+INFO: 2022/03/22 10:01:02 main.go:47: generate block, height: 4
+INFO: 2022/03/22 10:01:07 main.go:47: generate block, height: 5
+INFO: 2022/03/22 10:01:12 main.go:47: generate block, height: 6
+INFO: 2022/03/22 10:01:17 main.go:47: generate block, height: 7
+INFO: 2022/03/22 10:01:22 main.go:47: generate block, height: 8
+INFO: 2022/03/22 10:01:27 main.go:47: generate block, height: 9
+INFO: 2022/03/22 10:01:32 main.go:47: generate block, height: 10
+INFO: 2022/03/22 10:01:37 main.go:47: generate block, height: 11
+INFO: 2022/03/22 10:01:42 main.go:47: generate block, height: 12
+INFO: 2022/03/22 10:01:47 main.go:47: generate block, height: 13
+INFO: 2022/03/22 10:01:52 main.go:47: generate block, height: 14
+INFO: 2022/03/22 10:01:57 main.go:47: generate block, height: 15
+INFO: 2022/03/22 10:02:02 main.go:47: generate block, height: 16
+INFO: 2022/03/22 10:02:07 main.go:47: generate block, height: 17
+INFO: 2022/03/22 10:42:47 main.go:22: starting to open database
+INFO: 2022/03/22 10:42:47 main.go:35: starting to read config file
+INFO: 2022/03/22 10:42:47 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 10:42:47 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 10:43:06 main.go:47: generate block, height: 1
+INFO: 2022/03/22 10:43:11 main.go:47: generate block, height: 2
+INFO: 2022/03/22 10:53:49 main.go:22: starting to open database
+INFO: 2022/03/22 10:53:49 main.go:35: starting to read config file
+INFO: 2022/03/22 10:53:49 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 10:53:49 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 10:53:56 main.go:47: generate block, height: 1
+INFO: 2022/03/22 10:54:01 main.go:47: generate block, height: 2
+INFO: 2022/03/22 10:54:06 main.go:47: generate block, height: 3
+INFO: 2022/03/22 14:56:07 main.go:22: starting to open database
+INFO: 2022/03/22 14:56:07 main.go:35: starting to read config file
+INFO: 2022/03/22 14:56:07 rpc.go:100: starting prc server on port: 10000
+INFO: 2022/03/22 14:56:07 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 14:56:11 auxpow.go:174: difficulty is not satified for bbld's requirement
+INFO: 2022/03/22 14:56:12 main.go:47: generate block, height: 1
+INFO: 2022/03/22 14:56:17 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:01:52 main.go:22: starting to open database
+INFO: 2022/03/22 15:01:52 main.go:35: starting to read config file
+INFO: 2022/03/22 15:01:52 rpc.go:100: starting prc server on port: 10000
+INFO: 2022/03/22 15:01:52 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 15:01:57 main.go:47: generate block, height: 1
+ERROR: 2022/03/22 15:01:58 rpc.go:71: block database error
+INFO: 2022/03/22 15:02:02 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:02:07 main.go:47: generate block, height: 3
+INFO: 2022/03/22 15:02:12 main.go:47: generate block, height: 4
+INFO: 2022/03/22 15:03:21 main.go:22: starting to open database
+INFO: 2022/03/22 15:03:21 main.go:35: starting to read config file
+INFO: 2022/03/22 15:03:21 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:03:21 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 15:03:24 auxpow.go:174: difficulty is not satified for bbld's requirement
+INFO: 2022/03/22 15:03:26 main.go:47: generate block, height: 1
+INFO: 2022/03/22 15:03:31 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:04:22 main.go:22: starting to open database
+INFO: 2022/03/22 15:04:22 main.go:35: starting to read config file
+INFO: 2022/03/22 15:04:22 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:04:22 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 15:04:27 auxpow.go:174: difficulty is not satified for bbld's requirement
+INFO: 2022/03/22 15:04:27 main.go:47: generate block, height: 1
+ERROR: 2022/03/22 15:04:28 auxpow.go:174: difficulty is not satified for bbld's requirement
+INFO: 2022/03/22 15:04:32 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:10:53 main.go:22: starting to open database
+INFO: 2022/03/22 15:10:53 main.go:35: starting to read config file
+INFO: 2022/03/22 15:10:53 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:10:53 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 15:10:58 main.go:47: generate block, height: 1
+ERROR: 2022/03/22 15:11:00 auxpow.go:180: difficulty is not satified for bbld's requirement
+INFO: 2022/03/22 15:11:03 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:11:08 main.go:47: generate block, height: 3
+INFO: 2022/03/22 15:11:13 main.go:47: generate block, height: 4
+INFO: 2022/03/22 15:13:36 main.go:22: starting to open database
+INFO: 2022/03/22 15:13:36 main.go:35: starting to read config file
+INFO: 2022/03/22 15:13:36 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:13:36 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 15:13:41 main.go:47: generate block, height: 1
+INFO: 2022/03/22 15:13:46 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:13:51 main.go:47: generate block, height: 3
+INFO: 2022/03/22 15:13:56 main.go:47: generate block, height: 4
+INFO: 2022/03/22 15:14:01 main.go:47: generate block, height: 5
+INFO: 2022/03/22 15:14:06 main.go:47: generate block, height: 6
+INFO: 2022/03/22 15:14:11 main.go:47: generate block, height: 7
+INFO: 2022/03/22 15:14:16 main.go:47: generate block, height: 8
+INFO: 2022/03/22 15:14:21 main.go:47: generate block, height: 9
+INFO: 2022/03/22 15:14:26 main.go:47: generate block, height: 10
+INFO: 2022/03/22 15:14:31 main.go:47: generate block, height: 11
+INFO: 2022/03/22 15:14:36 main.go:47: generate block, height: 12
+INFO: 2022/03/22 15:14:41 main.go:47: generate block, height: 13
+ERROR: 2022/03/22 15:14:41 auxpow.go:182: merkle root failed, coinbase is not in btc block header
+ERROR: 2022/03/22 15:14:41 rpc.go:94: auxpow checking failed
+INFO: 2022/03/22 15:14:46 main.go:47: generate block, height: 14
+INFO: 2022/03/22 15:14:51 main.go:47: generate block, height: 15
+INFO: 2022/03/22 15:14:56 main.go:47: generate block, height: 16
+INFO: 2022/03/22 15:15:01 main.go:47: generate block, height: 17
+INFO: 2022/03/22 15:19:24 main.go:22: starting to open database
+INFO: 2022/03/22 15:19:24 main.go:35: starting to read config file
+INFO: 2022/03/22 15:19:24 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:19:24 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 15:19:29 main.go:47: generate block, height: 1
+ERROR: 2022/03/22 15:19:32 auxpow.go:182: merkle root failed, coinbase is not in btc block header
+ERROR: 2022/03/22 15:19:32 rpc.go:94: auxpow checking failed
+INFO: 2022/03/22 15:19:34 main.go:47: generate block, height: 2
+ERROR: 2022/03/22 15:19:35 auxpow.go:182: merkle root failed, coinbase is not in btc block header
+ERROR: 2022/03/22 15:19:35 rpc.go:94: auxpow checking failed
+ERROR: 2022/03/22 15:19:36 auxpow.go:182: merkle root failed, coinbase is not in btc block header
+ERROR: 2022/03/22 15:19:36 rpc.go:94: auxpow checking failed
+INFO: 2022/03/22 15:20:39 main.go:22: starting to open database
+INFO: 2022/03/22 15:20:39 main.go:35: starting to read config file
+INFO: 2022/03/22 15:20:39 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:20:39 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 15:20:44 main.go:47: generate block, height: 1
+INFO: 2022/03/22 15:20:49 main.go:47: generate block, height: 2
+INFO: 2022/03/22 15:20:54 main.go:47: generate block, height: 3
+INFO: 2022/03/22 15:20:59 main.go:47: generate block, height: 4
+INFO: 2022/03/22 15:22:31 main.go:22: starting to open database
+INFO: 2022/03/22 15:22:31 main.go:35: starting to read config file
+INFO: 2022/03/22 15:22:31 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 15:22:31 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 15:22:36 main.go:47: generate block, height: 1

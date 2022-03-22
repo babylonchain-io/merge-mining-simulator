@@ -167,10 +167,19 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 		return false
 	}
 
-	//check nonce, tbd
-	//check the coinbase
-	if GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) != ap.ParBlockHeader.MerkleRoot {
-		logger.Error.Println("merkle root failed, coinbase is not in blockheader")
+	// check the Difficulty
+	targetDifficulty := common.CompactToBig(ap.ParBlockHeader.Bits)
+	hash := ap.ParBlockHeader.Hash()
+
+	// hash should be less that targetDifficulty
+	if common.HashToBig(&hash).Cmp(targetDifficulty) > 0 {
+		logger.Error.Println("difficulty is not satified for bbld's requirement")
+		return false
+	}
+
+	// check if coinbase is in btc block header
+	if !ap.CheckCoinbaseInBtcHeader() {
+		logger.Error.Println("merkle root failed, coinbase is not in btc block header")
 		return false
 	}
 
@@ -189,7 +198,21 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	headerIndex := strings.Index(scriptStr, pchMergedMiningHeaderStr)
 	rootHashIndex := strings.Index(scriptStr, auxRootHashReverseStr)
 
+	//fmt.Printf("scriptStr-----------" + scriptStr)
+	//fmt.Printf("pchMergedMiningHeaderStr-----------" + pchMergedMiningHeaderStr)
+	//fmt.Printf("auxRootHashReverseStr-----------" + auxRootHashReverseStr)
+
 	if (headerIndex == -1) || (rootHashIndex == -1) {
+		logger.Error.Println("hashAuxBlock is not in coinbase")
+		return false
+	}
+
+	if headerIndex == -1 {
+		logger.Error.Println("magic is not in coinbase")
+		return false
+	}
+
+	if rootHashIndex == -1 {
 		logger.Error.Println("hashAuxBlock is not in coinbase")
 		return false
 	}
@@ -210,15 +233,20 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	size := binary.LittleEndian.Uint32(script[rootHashIndex/2 : rootHashIndex/2+4])
 	merkleHeight := len(ap.AuxMerkleBranch)
 	if size != uint32(1<<uint32(merkleHeight)) {
-		return false
+		//return false
 	}
 
+	//Aux work merkle tree
 	nonce := binary.LittleEndian.Uint32(script[rootHashIndex/2+4 : rootHashIndex/2+8])
 	if ap.AuxMerkleIndex != GetExpectedIndex(nonce, chainID, merkleHeight) {
 		logger.Error.Println("expected index failed")
 		return false
 	}
 	return true
+}
+
+func (ap *AuxPow) CheckCoinbaseInBtcHeader() bool {
+	return GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) == ap.ParBlockHeader.MerkleRoot
 }
 
 func GetMerkleRoot(hash common.Uint256, merkleBranch []common.Uint256, index int) common.Uint256 {
@@ -246,6 +274,5 @@ func GetExpectedIndex(nonce uint32, chainID, h int) int {
 	rand = rand*1103515245 + 12345
 	rand += uint32(chainID)
 	rand = rand*1103515245 + 12345
-
 	return int(rand % (1 << uint32(h)))
 }

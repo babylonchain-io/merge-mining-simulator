@@ -75,7 +75,7 @@ func GetBlockHash(hash string) (map[string]interface{}, error) {
 		return nil
 	})
 	if err != nil {
-		fmt.Printf("Could not get Block Hash%s", hash)
+		fmt.Printf("Could not get Block Hash%s ", hash)
 		return nil, err
 	}
 	return jsonMap, nil

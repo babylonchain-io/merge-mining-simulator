@@ -65,17 +65,19 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	*reply = true
 
 	//block hash check, if blockHashHex is not in our database, return false
-	blockhashexit, err := CheckBlockHash(blockHashHex)
-	if err != nil {
-		*reply = false
-		logger.Error.Println("block database error")
-		return nil
-	}
-	if !blockhashexit {
-		*reply = false
-		logger.Error.Println("not found block hash")
-		return nil
-	}
+	/*
+		blockhashexit, err := CheckBlockHash(blockHashHex)
+		if err != nil {
+			*reply = false
+			logger.Error.Println("block database error")
+			return nil
+		}
+		if !blockhashexit {
+			*reply = false
+			logger.Error.Println("not found block hash")
+			return nil
+		}
+	*/
 
 	//auxpow deserialization
 	auxPow := args.Auxpow
@@ -87,12 +89,11 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	}
 
 	//auxpow check
-	if ok := aux.Check(blockHashHex, 6); !ok {
+	if ok := aux.Check(blockHashHex, 8); !ok {
 		*reply = false
 		logger.Error.Println("auxpow checking failed")
 		return nil
 	}
-
 	return nil
 }
 
