@@ -184,7 +184,7 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	}
 
 	// check if block is in Coinbase
-	if !ap.BlockHashInCoinbase(hashAuxBlock) {
+	if !ap.AuxBlockHashInCoinbase(hashAuxBlock) {
 		logger.Error.Println("hashAuxBlock is not in coinbase")
 		return false
 	}
@@ -204,7 +204,7 @@ func (ap *AuxPow) CoinbaseInBtcHeader() bool {
 }
 
 // AuxBlock Hash is not in coinbase
-func (ap *AuxPow) BlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
+func (ap *AuxPow) AuxBlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
 
 	//reverse the hashAuxBlock
 	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
