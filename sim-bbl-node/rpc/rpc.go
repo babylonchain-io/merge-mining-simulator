@@ -33,10 +33,12 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	//var baseTx pow.Transaction
 	blocks := bc.GetBlocks()
 	block := blocks[len(blocks)-1]
+
 	//baseTx, _ = pow.CreateCoinbaseTx(args.Paytoaddress)
 	//bc.Addblock([]byte(fmt.Sprintf("%v", baseTx))) //add baseTx to block
 	//new_pow := pow.NewPOW(block, difficulty)
 	//hash := new_pow.PreparetoMine()
+
 	hash := block.Hash
 	hashstring := fmt.Sprintf("%x", hash)
 
@@ -65,19 +67,17 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	*reply = true
 
 	//block hash check, if blockHashHex is not in our database, return false
-	/*
-		blockhashexit, err := CheckBlockHash(blockHashHex)
-		if err != nil {
-			*reply = false
-			logger.Error.Println("block database error")
-			return nil
-		}
-		if !blockhashexit {
-			*reply = false
-			logger.Error.Println("not found block hash")
-			return nil
-		}
-	*/
+	blockhashexit, err := CheckBlockHash(blockHashHex)
+	if err != nil {
+		*reply = false
+		logger.Error.Println("block database error")
+		return nil
+	}
+	if !blockhashexit {
+		*reply = false
+		logger.Error.Println("not found block hash")
+		return nil
+	}
 
 	//auxpow deserialization
 	auxPow := args.Auxpow

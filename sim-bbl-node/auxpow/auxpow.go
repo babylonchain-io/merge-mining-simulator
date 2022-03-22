@@ -178,10 +178,32 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	}
 
 	// check if coinbase is in btc block header
-	if !ap.CheckCoinbaseInBtcHeader() {
+	if !ap.CoinbaseInBtcHeader() {
 		logger.Error.Println("merkle root failed, coinbase is not in btc block header")
 		return false
 	}
+
+	// check if block is in Coinbase
+	if !ap.BlockHashInCoinbase(hashAuxBlock) {
+		logger.Error.Println("hashAuxBlock is not in coinbase")
+		return false
+	}
+
+	if !ap.AuxWorkInMerkleTree(hashAuxBlock, chainID) {
+		logger.Error.Println("auxwork not in merkle tree")
+		return false
+	}
+
+	return true
+}
+
+// Coinbase in Btc Header
+func (ap *AuxPow) CoinbaseInBtcHeader() bool {
+	return GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) == ap.ParBlockHeader.MerkleRoot
+}
+
+// AuxBlock Hash is not in coinbase
+func (ap *AuxPow) BlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
 
 	//reverse the hashAuxBlock
 	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
@@ -198,55 +220,57 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	headerIndex := strings.Index(scriptStr, pchMergedMiningHeaderStr)
 	rootHashIndex := strings.Index(scriptStr, auxRootHashReverseStr)
 
-	//fmt.Printf("scriptStr-----------" + scriptStr)
-	//fmt.Printf("pchMergedMiningHeaderStr-----------" + pchMergedMiningHeaderStr)
-	//fmt.Printf("auxRootHashReverseStr-----------" + auxRootHashReverseStr)
-
 	if (headerIndex == -1) || (rootHashIndex == -1) {
-		logger.Error.Println("hashAuxBlock is not in coinbase")
-		return false
-	}
-
-	if headerIndex == -1 {
-		logger.Error.Println("magic is not in coinbase")
-		return false
-	}
-
-	if rootHashIndex == -1 {
-		logger.Error.Println("hashAuxBlock is not in coinbase")
+		logger.Error.Println("hashAuxBlock 260 is not in coinbase")
 		return false
 	}
 
 	if strings.Index(scriptStr[headerIndex+2:], pchMergedMiningHeaderStr) != -1 {
+		logger.Error.Println("hashAuxBlock 265 is not in coinbase")
 		return false
 	}
 
 	if headerIndex+len(pchMergedMiningHeaderStr) != rootHashIndex {
+		logger.Error.Println("hashAuxBlock 270 is not in coinbase")
 		return false
 	}
 
 	rootHashIndex += len(auxRootHashReverseStr)
 	if len(scriptStr)-rootHashIndex < 8 {
+		logger.Error.Println("hashAuxBlock 276 is not in coinbase")
 		return false
 	}
+	return true
+}
 
+// Aux work in the merkle tree
+func (ap *AuxPow) AuxWorkInMerkleTree(hashAuxBlock *common.Uint256, chainID int) bool {
+
+	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
+	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
+	auxRootHash := GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
+
+	script := ap.ParCoinbaseTx.TxIn[0].SignatureScript
+	scriptStr := hex.EncodeToString(script)
+
+	// reverse the auxRootHash
+	auxRootHashReverseStr := hex.EncodeToString(common.BytesReverse(auxRootHash.Bytes()))
+	rootHashIndex := strings.Index(scriptStr, auxRootHashReverseStr)
+
+	//Aux work merkle tree
 	size := binary.LittleEndian.Uint32(script[rootHashIndex/2 : rootHashIndex/2+4])
 	merkleHeight := len(ap.AuxMerkleBranch)
 	if size != uint32(1<<uint32(merkleHeight)) {
 		//return false
 	}
 
-	//Aux work merkle tree
 	nonce := binary.LittleEndian.Uint32(script[rootHashIndex/2+4 : rootHashIndex/2+8])
 	if ap.AuxMerkleIndex != GetExpectedIndex(nonce, chainID, merkleHeight) {
 		logger.Error.Println("expected index failed")
 		return false
 	}
-	return true
-}
 
-func (ap *AuxPow) CheckCoinbaseInBtcHeader() bool {
-	return GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) == ap.ParBlockHeader.MerkleRoot
+	return true
 }
 
 func GetMerkleRoot(hash common.Uint256, merkleBranch []common.Uint256, index int) common.Uint256 {

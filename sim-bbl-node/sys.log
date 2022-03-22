@@ -180,3 +180,74 @@ INFO: 2022/03/22 15:22:31 main.go:35: starting to read config file
 INFO: 2022/03/22 15:22:31 rpc.go:102: starting prc server on port: 10000
 INFO: 2022/03/22 15:22:31 main.go:42: starting to mine, mining interval:5s
 INFO: 2022/03/22 15:22:36 main.go:47: generate block, height: 1
+INFO: 2022/03/22 17:00:18 main.go:22: starting to open database
+INFO: 2022/03/22 17:00:18 main.go:35: starting to read config file
+INFO: 2022/03/22 17:00:18 rpc.go:101: starting prc server on port: 10000
+INFO: 2022/03/22 17:00:18 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 17:00:23 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:01:46 main.go:22: starting to open database
+INFO: 2022/03/22 18:01:46 main.go:35: starting to read config file
+INFO: 2022/03/22 18:01:46 rpc.go:104: starting prc server on port: 10000
+INFO: 2022/03/22 18:01:46 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 18:01:50 auxpow.go:188: hashAuxBlock is not in coinbase
+ERROR: 2022/03/22 18:01:50 rpc.go:96: auxpow checking failed
+INFO: 2022/03/22 18:01:51 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:01:56 main.go:47: generate block, height: 2
+INFO: 2022/03/22 18:09:33 main.go:22: starting to open database
+INFO: 2022/03/22 18:09:33 main.go:35: starting to read config file
+INFO: 2022/03/22 18:09:33 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 18:09:33 rpc.go:104: starting prc server on port: 10000
+ERROR: 2022/03/22 18:09:37 auxpow.go:188: hashAuxBlock is not in coinbase
+ERROR: 2022/03/22 18:09:37 rpc.go:96: auxpow checking failed
+INFO: 2022/03/22 18:09:38 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:09:43 main.go:47: generate block, height: 2
+ERROR: 2022/03/22 18:09:46 auxpow.go:188: hashAuxBlock is not in coinbase
+ERROR: 2022/03/22 18:09:46 rpc.go:96: auxpow checking failed
+INFO: 2022/03/22 18:09:48 main.go:47: generate block, height: 3
+INFO: 2022/03/22 18:16:33 main.go:22: starting to open database
+INFO: 2022/03/22 18:16:33 main.go:35: starting to read config file
+INFO: 2022/03/22 18:16:33 rpc.go:104: starting prc server on port: 10000
+INFO: 2022/03/22 18:16:33 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 18:16:38 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:16:43 main.go:47: generate block, height: 2
+INFO: 2022/03/22 18:16:48 main.go:47: generate block, height: 3
+INFO: 2022/03/22 18:16:53 main.go:47: generate block, height: 4
+INFO: 2022/03/22 18:16:58 main.go:47: generate block, height: 5
+INFO: 2022/03/22 18:17:03 main.go:47: generate block, height: 6
+ERROR: 2022/03/22 18:17:07 auxpow.go:193: auxwork not in merkle tree
+ERROR: 2022/03/22 18:17:07 rpc.go:96: auxpow checking failed
+INFO: 2022/03/22 18:17:08 main.go:47: generate block, height: 7
+INFO: 2022/03/22 18:17:13 main.go:47: generate block, height: 8
+INFO: 2022/03/22 18:27:37 main.go:22: starting to open database
+INFO: 2022/03/22 18:27:37 main.go:35: starting to read config file
+INFO: 2022/03/22 18:27:37 rpc.go:104: starting prc server on port: 10000
+INFO: 2022/03/22 18:27:37 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 18:27:38 auxpow.go:193: auxwork not in merkle tree
+ERROR: 2022/03/22 18:27:38 rpc.go:96: auxpow checking failed
+ERROR: 2022/03/22 18:27:39 auxpow.go:193: auxwork not in merkle tree
+ERROR: 2022/03/22 18:27:39 rpc.go:96: auxpow checking failed
+ERROR: 2022/03/22 18:27:41 auxpow.go:193: auxwork not in merkle tree
+ERROR: 2022/03/22 18:27:41 rpc.go:96: auxpow checking failed
+INFO: 2022/03/22 18:27:42 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:27:47 main.go:47: generate block, height: 2
+INFO: 2022/03/22 18:31:05 main.go:22: starting to open database
+INFO: 2022/03/22 18:31:05 main.go:35: starting to read config file
+INFO: 2022/03/22 18:31:05 rpc.go:104: starting prc server on port: 10000
+INFO: 2022/03/22 18:31:05 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 18:31:10 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:32:04 main.go:22: starting to open database
+INFO: 2022/03/22 18:32:04 main.go:35: starting to read config file
+INFO: 2022/03/22 18:32:04 rpc.go:104: starting prc server on port: 10000
+INFO: 2022/03/22 18:32:04 main.go:42: starting to mine, mining interval:5s
+ERROR: 2022/03/22 18:32:08 rpc.go:89: auxpow deserialization failed
+INFO: 2022/03/22 18:32:09 main.go:47: generate block, height: 1
+INFO: 2022/03/22 18:32:14 main.go:47: generate block, height: 2
+INFO: 2022/03/22 18:32:19 main.go:47: generate block, height: 3
+INFO: 2022/03/22 18:33:52 main.go:22: starting to open database
+INFO: 2022/03/22 18:33:52 main.go:35: starting to read config file
+INFO: 2022/03/22 18:33:52 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/22 18:33:52 rpc.go:102: starting prc server on port: 10000
+INFO: 2022/03/22 18:33:57 main.go:47: generate block, height: 1
+ERROR: 2022/03/22 18:33:57 rpc.go:73: block database error
+INFO: 2022/03/22 18:34:02 main.go:47: generate block, height: 2
+ERROR: 2022/03/22 18:34:02 rpc.go:73: block database error
