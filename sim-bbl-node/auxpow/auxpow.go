@@ -189,7 +189,8 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 		return false
 	}
 
-	if !ap.AuxWorkInMerkleTree(hashAuxBlock, chainID) {
+	// check if auxwork is in mining merkle tree
+	if !ap.AuxWorkInMiningMerkleTree(hashAuxBlock, chainID) {
 		logger.Error.Println("auxwork not in merkle tree")
 		return false
 	}
@@ -244,7 +245,7 @@ func (ap *AuxPow) BlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
 }
 
 // Aux work in the merkle tree
-func (ap *AuxPow) AuxWorkInMerkleTree(hashAuxBlock *common.Uint256, chainID int) bool {
+func (ap *AuxPow) AuxWorkInMiningMerkleTree(hashAuxBlock *common.Uint256, chainID int) bool {
 
 	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
 	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
