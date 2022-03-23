@@ -10,3 +10,6 @@ mtime = "5s"
 
 # difficulty
 difficulty = 5
+
+# Bits 
+bits = "1d36c855"

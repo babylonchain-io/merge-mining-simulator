@@ -5,4 +5,5 @@ type Config struct {
 	Port       string
 	Mtime      string
 	Difficulty uint64
+	Bits       string
 }

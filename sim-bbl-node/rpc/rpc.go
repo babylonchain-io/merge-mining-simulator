@@ -17,7 +17,9 @@ import (
 
 var bc *blockchain.Blockchain
 
-type BBLService struct{}
+type BBLService struct {
+	config config.Config
+}
 
 type CreateAuxHashArgs struct {
 	Paytoaddress string
@@ -47,11 +49,12 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	}
 	blockHash.SaveBlockHash()
 
+	//"1d36c855"
 	auxBlock := aux.AuxBlock{
 		ChainID:           int(249),
 		Height:            block.Height + 1,
 		CoinBaseValue:     common.Fixed64(175799086),
-		Bits:              "1d36c855",
+		Bits:              h.config.Bits,
 		Hash:              fmt.Sprintf("%x", hash),
 		PreviousBlockHash: fmt.Sprintf("%x", block.Hash),
 	}
@@ -104,7 +107,9 @@ func StartRPC(config config.Config, c *blockchain.Blockchain) {
 	logger.Info.Println("starting prc server on port: " + config.Port)
 	newServer := rpc.NewServer()
 	newServer.RegisterCodec(json.NewCodec(), "application/json")
-	newServer.RegisterService(new(BBLService), "")
+	bbls := new(BBLService)
+	bbls.config = config
+	newServer.RegisterService(bbls, "")
 	http.Handle("/rpc", newServer)
 	http.ListenAndServe(config.Host+":"+config.Port, nil)
 }
