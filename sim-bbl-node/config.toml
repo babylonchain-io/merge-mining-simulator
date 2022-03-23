@@ -8,8 +8,5 @@ port = 10000
 #mining interval
 mtime = "5s"
 
-# difficulty
-difficulty = 5
-
 # Bits 
-bits = "1d36c855"
+bits = 1024

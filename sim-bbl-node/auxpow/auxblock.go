@@ -7,7 +7,7 @@ type AuxBlock struct {
 	ChainID           int            `json:"chainid"`
 	Height            uint32         `json:"height"`
 	CoinBaseValue     common.Fixed64 `json:"coinbasevalue"`
-	Bits              string         `json:"bits"`
+	Bits              uint32         `json:"bits"`
 	Hash              string         `json:"hash"`
 	PreviousBlockHash string         `json:"previousblockhash"`
 }

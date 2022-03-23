@@ -34,7 +34,7 @@ func main() {
 	viper.Unmarshal(&config)
 	logger.Info.Println("starting to read config file")
 
-	bc := blockchain.NewblockChain(config.Difficulty)
+	bc := blockchain.NewblockChain(config.Bits)
 
 	// start to mine
 	go func() {

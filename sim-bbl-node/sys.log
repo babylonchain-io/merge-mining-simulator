@@ -26,3 +26,48 @@ INFO: 2022/03/23 09:55:40 rpc.go:62: return aux block hash: [05b5006deefd32be637
 INFO: 2022/03/23 09:55:42 main.go:47: generate block, height: 4
 INFO: 2022/03/23 09:55:47 main.go:47: generate block, height: 5
 INFO: 2022/03/23 09:55:52 main.go:47: generate block, height: 6
+INFO: 2022/03/23 10:16:50 main.go:22: starting to open database
+INFO: 2022/03/23 10:16:50 main.go:35: starting to read config file
+INFO: 2022/03/23 10:16:50 rpc.go:107: starting prc server on port: 10000
+INFO: 2022/03/23 10:16:50 main.go:41: starting to mine, mining interval:5s
+INFO: 2022/03/23 10:16:54 rpc.go:62: return aux block hash: [330b969f39a74b3c10e3c5f06188e26635138a8f54c0046cde41c709c5b16117] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:16:55 main.go:46: generate block, height: 1
+INFO: 2022/03/23 10:17:00 main.go:46: generate block, height: 2
+INFO: 2022/03/23 10:17:05 main.go:46: generate block, height: 3
+INFO: 2022/03/23 10:17:10 main.go:46: generate block, height: 4
+INFO: 2022/03/23 10:17:10 rpc.go:62: return aux block hash: [3dbfb2383b344cf9c5d760be7b185d006c347c5c6e0f11258e70da85c6f9bf79] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:17:15 main.go:46: generate block, height: 5
+INFO: 2022/03/23 10:17:35 main.go:22: starting to open database
+INFO: 2022/03/23 10:18:01 main.go:22: starting to open database
+INFO: 2022/03/23 10:18:01 main.go:35: starting to read config file
+INFO: 2022/03/23 10:18:01 rpc.go:107: starting prc server on port: 10000
+INFO: 2022/03/23 10:18:01 main.go:41: starting to mine, mining interval:5s
+INFO: 2022/03/23 10:18:05 rpc.go:62: return aux block hash: [637d71676d462eae1165c9af8c224db5c22ecc8493207965d99881047c1cadb1] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:18:06 main.go:46: generate block, height: 1
+INFO: 2022/03/23 10:20:24 main.go:22: starting to open database
+INFO: 2022/03/23 10:20:24 main.go:35: starting to read config file
+INFO: 2022/03/23 10:20:24 rpc.go:109: starting prc server on port: 10000
+INFO: 2022/03/23 10:20:24 main.go:41: starting to mine, mining interval:5s
+INFO: 2022/03/23 10:20:27 rpc.go:64: return aux block hash: [2fd08b13179c08009d8014ded47c4e0e366cecd28b4720159583e264842942a0] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:20:29 main.go:46: generate block, height: 1
+INFO: 2022/03/23 10:20:34 main.go:46: generate block, height: 2
+INFO: 2022/03/23 10:20:39 main.go:46: generate block, height: 3
+INFO: 2022/03/23 10:25:07 main.go:23: starting to open database
+INFO: 2022/03/23 10:25:07 main.go:36: starting to read config file
+INFO: 2022/03/23 10:27:18 main.go:22: starting to open database
+INFO: 2022/03/23 10:27:18 main.go:35: starting to read config file
+INFO: 2022/03/23 10:27:18 rpc.go:109: starting prc server on port: 10000
+INFO: 2022/03/23 10:27:18 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/23 10:27:20 rpc.go:64: return aux block hash: [9118b5fb884fcd24496ccbff2b4f0a627436a789a5b3c57781fa79e8a80da9f8] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:27:23 main.go:47: generate block, height: 1
+INFO: 2022/03/23 10:27:24 rpc.go:64: return aux block hash: [965c9af134a9adf42f7c6d6fe3d2ef9d7740f265bc77f35b0a3458f5a32cd068] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:27:28 main.go:47: generate block, height: 2
+INFO: 2022/03/23 10:28:27 main.go:22: starting to open database
+INFO: 2022/03/23 10:28:27 main.go:35: starting to read config file
+INFO: 2022/03/23 10:28:27 rpc.go:107: starting prc server on port: 10000
+INFO: 2022/03/23 10:28:27 main.go:42: starting to mine, mining interval:5s
+INFO: 2022/03/23 10:28:32 main.go:47: generate block, height: 1
+INFO: 2022/03/23 10:28:37 main.go:47: generate block, height: 2
+INFO: 2022/03/23 10:28:42 main.go:47: generate block, height: 3
+INFO: 2022/03/23 10:28:45 rpc.go:62: return aux block hash: [33bb460660c0533fe39d613f6c504a7164e0a07d0d8b8839d3293e56d30c45f1] to: [127.0.0.1:10000]
+INFO: 2022/03/23 10:28:47 main.go:47: generate block, height: 4

@@ -6,13 +6,14 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math/big"
+	"mockbbld/common"
 )
 
 type Block struct {
 	Version       uint64
 	MerkelRoot    []byte
 	TimeStamp     string
-	Difficulty    uint64
+	Bits          uint32
 	Nonce         uint64
 	PrevBlockHash []byte
 	Data          []byte
@@ -24,10 +25,11 @@ type BlockHash struct {
 	Hash string
 }
 
-func NewPOW(block *Block, difficulty uint64) *ProofOfWork {
+func NewPOW(block *Block, bits uint32) *ProofOfWork {
 	var this ProofOfWork
 	this.block = block
-	targetint := Gettargetint(difficulty)
+	//targetint := Gettargetint(difficulty)
+	targetint := common.CompactToBig(bits)
 	this.target = targetint
 	return &this
 }
@@ -39,7 +41,7 @@ func (block *Block) PrintBlockInfo() {
 	fmt.Printf("Hash : %x\n", block.Hash)
 	fmt.Printf("MerkleRoot : %x\n", block.MerkelRoot)
 	fmt.Printf("TimeStamp : %s\n", block.TimeStamp)
-	fmt.Printf("Difficuty : %d\n", block.Difficulty)
+	fmt.Printf("Bits : %d\n", block.Bits)
 	fmt.Printf("Nonce : %d\n", block.Nonce)
 	fmt.Printf("Data : %s\n", block.Data)
 	fmt.Printf("--------------------------------\n\n")
@@ -62,13 +64,19 @@ func uint2byte(num uint64) []byte {
 	return buff.Bytes()
 }
 
+func uint32byte(num uint32) []byte {
+	var buff bytes.Buffer
+	binary.Write(&buff, binary.BigEndian, &num)
+	return buff.Bytes()
+}
+
 func (pow *ProofOfWork) PreparetoMine() []byte {
 	info := [][]byte{
 		pow.block.PrevBlockHash,
 		pow.block.Data,
 		//uint2byte(nonce),
 		uint2byte(pow.block.Version),
-		uint2byte(pow.block.Difficulty),
+		uint32byte(pow.block.Bits),
 		[]byte(pow.block.TimeStamp),
 		pow.block.MerkelRoot,
 	}
