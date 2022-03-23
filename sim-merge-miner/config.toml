@@ -1,0 +1,11 @@
+
+# ip
+bblhost = "127.0.0.1"
+
+# port
+bblport = 10000
+
+#block retrieval interval (in seconds)
+retrieve = 5
+
+paytoaddress = "0x123456"
