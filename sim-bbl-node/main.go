@@ -58,7 +58,6 @@ func main() {
 
 	// read command
 	input := bufio.NewScanner(os.Stdin)
-	fmt.Printf("Please input the command:\n")
 	for input.Scan() {
 		line := input.Text()
 		if line == "exit" {
