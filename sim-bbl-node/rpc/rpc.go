@@ -41,6 +41,10 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 	//new_pow := pow.NewPOW(block, difficulty)
 	//hash := new_pow.PreparetoMine()
 
+	if args.Paytoaddress == "" {
+		logger.ReqestError.Println("paytoaddress is nil")
+	}
+
 	hash := block.Hash
 	hashstring := fmt.Sprintf("%x", hash)
 
@@ -59,7 +63,7 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 		PreviousBlockHash: fmt.Sprintf("%x", block.Hash),
 	}
 	*reply = auxBlock
-	logger.Info.Println("return aux block hash: [" + hashstring + "] to: [" + r.Host + "]")
+	logger.ReqestInfo.Println("return aux block hash: [" + hashstring + "] to: [" + r.Host + "]")
 	return nil
 }
 
@@ -69,18 +73,16 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	blockHashHex := args.Blockhash
 	*reply = true
 
-	logger.Info.Println("submit auxblock: [" + args.Auxpow + "] from: [" + r.Host + "]")
-
 	//block hash check, if blockHashHex is not in our database, return false
 	blockhashexit, err := CheckBlockHash(blockHashHex)
 	if err != nil {
 		*reply = false
-		logger.Error.Println("block database error")
+		logger.SubmissionError.Println("blockhash not found in database error, blockhash: " + blockHashHex)
 		return nil
 	}
 	if !blockhashexit {
 		*reply = false
-		logger.Error.Println("not found block hash")
+		logger.SubmissionError.Println("blockhash not found in database error, blockhash: " + blockHashHex)
 		return nil
 	}
 
@@ -89,7 +91,7 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	buf, _ := common.HexStringToBytes(auxPow)
 	if err := aux.Deserialize(bytes.NewReader(buf)); err != nil {
 		*reply = false
-		logger.Error.Println("auxpow deserialization failed")
+		logger.SubmissionError.Println("auxpow deserialization failed, auxPow: " + auxPow)
 		return nil
 	}
 
@@ -97,9 +99,11 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	//auxpow check
 	if ok := aux.Check(blockHashHex, 6, bblBits); !ok {
 		*reply = false
-		//logger.Error.Println("auxpow checking failed")
+		logger.SubmissionError.Println("auxpow check failed, auxPow: " + auxPow)
 		return nil
 	}
+
+	logger.SubmissionInfo.Println("submit auxblock: [" + args.Auxpow + "] from: [" + r.Host + "]")
 	return nil
 }
 

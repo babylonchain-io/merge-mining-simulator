@@ -8,6 +8,8 @@ import (
 	"mockbbld/pow"
 	"mockbbld/rpc"
 
+	"bufio"
+	"os"
 	"time"
 
 	"github.com/spf13/viper"
@@ -50,6 +52,33 @@ func main() {
 	}()
 
 	// start rpc
-	rpc.StartRPC(config, bc)
+	go func() {
+		rpc.StartRPC(config, bc)
+	}()
+
+	// read command
+	input := bufio.NewScanner(os.Stdin)
+	for input.Scan() {
+		line := input.Text()
+		if line == "exit" {
+			break
+		}
+
+		if line == "show_normal_aux_request" {
+			logger.ShowNormalAuxRequest()
+		}
+
+		if line == "show_normal_aux_submission" {
+			logger.ShowNormalAuxSubmission()
+		}
+
+		if line == "show_error_aux_request" {
+			logger.ShowErrorAuxRequest()
+		}
+
+		if line == "show_error_aux_submission" {
+			logger.ShowErrorAuxSubmission()
+		}
+	}
 
 }
