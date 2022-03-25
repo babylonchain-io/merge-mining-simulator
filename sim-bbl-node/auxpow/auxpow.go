@@ -157,7 +157,7 @@ func (ap *AuxPow) Deserialize(r io.Reader) error {
 	return nil
 }
 
-func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
+func (ap *AuxPow) Check(blockHashHex string, chainID int, bblBits uint32) bool {
 
 	var hashAuxBlock *common.Uint256
 
@@ -168,7 +168,7 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int) bool {
 	}
 
 	// check the Difficulty
-	targetDifficulty := common.CompactToBig(ap.ParBlockHeader.Bits)
+	targetDifficulty := common.CompactToBig(bblBits)
 	hash := ap.ParBlockHeader.Hash()
 
 	// hash should be less that targetDifficulty

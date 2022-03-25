@@ -93,8 +93,9 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 		return nil
 	}
 
+	bblBits := h.config.Bits
 	//auxpow check
-	if ok := aux.Check(blockHashHex, 6); !ok {
+	if ok := aux.Check(blockHashHex, 6, bblBits); !ok {
 		*reply = false
 		//logger.Error.Println("auxpow checking failed")
 		return nil
