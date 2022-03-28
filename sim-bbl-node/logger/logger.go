@@ -189,7 +189,7 @@ func ShowAll() {
 		}
 	}
 
-	fmt.Println("BBL block generated: ", BLOCK_INFO_index, " sent: ", REQEST_ALL_index, " auxPoW received: ", SUBMISSION_ALL_index, " valid: ", SUBMISSION_INFO_index, " invalid: ", SUBMISSION_ERROR_index, "outdates: ", OUTDATED_ERROR_index)
+	fmt.Println("BBL block generated:", BLOCK_INFO_index, ", sent:", REQEST_ALL_index, ", auxPoW received:", SUBMISSION_ALL_index, ", valid:", SUBMISSION_INFO_index, ", invalid:", SUBMISSION_ERROR_index, ", outdated:", OUTDATED_ERROR_index)
 
 	//fmt.Println("---------[end print]-----------")
 }
