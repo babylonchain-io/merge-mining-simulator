@@ -67,6 +67,10 @@ func GetBlockHash(hash string) (map[string]interface{}, error) {
 	err := db.View(func(tx *bolt.Tx) error {
 		var err error
 		b := tx.Bucket([]byte("blockhash"))
+		if b == nil {
+			return err
+		}
+
 		k := []byte(hash)
 		jsonMap, err = decode(b.Get(k))
 		if err != nil {

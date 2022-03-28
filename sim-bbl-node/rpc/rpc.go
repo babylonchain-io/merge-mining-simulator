@@ -63,7 +63,7 @@ func (h *BBLService) Createauxblock(r *http.Request, args *CreateAuxHashArgs, re
 		PreviousBlockHash: fmt.Sprintf("%x", block.Hash),
 	}
 	*reply = auxBlock
-	logger.ReqestInfo.Println("return aux block hash: [" + hashstring + "] to: [" + r.Host + "]")
+	logger.ReqestInfo.Println("return aux block hash: [" + hashstring + "]")
 	return nil
 }
 
@@ -73,17 +73,27 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	blockHashHex := args.Blockhash
 	*reply = true
 
+	blocks := bc.GetBlocks()
+	block := blocks[len(blocks)-1]
+	chash := fmt.Sprintf("%x", block.Hash)
+
+	if chash != blockHashHex {
+		*reply = false
+		logger.OutdatedError.Println("blockhash is outdated, blockhash: " + blockHashHex)
+		return fmt.Errorf("blockhash is outdated, blockhash: " + blockHashHex)
+	}
+
 	//block hash check, if blockHashHex is not in our database, return false
 	blockhashexit, err := CheckBlockHash(blockHashHex)
 	if err != nil {
 		*reply = false
 		logger.SubmissionError.Println("blockhash not found in database error, blockhash: " + blockHashHex)
-		return nil
+		return fmt.Errorf("blockhash not found in database error, blockhash: " + blockHashHex)
 	}
 	if !blockhashexit {
 		*reply = false
 		logger.SubmissionError.Println("blockhash not found in database error, blockhash: " + blockHashHex)
-		return nil
+		return fmt.Errorf("blockhash not found in database error, blockhash: " + blockHashHex)
 	}
 
 	//auxpow deserialization
@@ -92,7 +102,7 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	if err := aux.Deserialize(bytes.NewReader(buf)); err != nil {
 		*reply = false
 		logger.SubmissionError.Println("auxpow deserialization failed, auxPow: " + auxPow)
-		return nil
+		return fmt.Errorf("auxpow deserialization failed, auxPow: " + auxPow)
 	}
 
 	bblBits := h.config.Bits
@@ -100,11 +110,15 @@ func (h *BBLService) SubmitAuxBlock(r *http.Request, args *SubmitAuxArgs, reply 
 	if ok := aux.Check(blockHashHex, 6, bblBits); !ok {
 		*reply = false
 		logger.SubmissionError.Println("auxpow check failed, auxPow: " + auxPow)
-		return nil
+		return fmt.Errorf("auxpow check failed, auxPow: " + auxPow)
 	}
 
 	logger.SubmissionInfo.Println("submit auxblock: [" + args.Auxpow + "] from: [" + r.Host + "]")
 	return nil
+}
+
+func Error(s string) {
+	panic("unimplemented")
 }
 
 func StartRPC(config config.Config, c *blockchain.Blockchain) {

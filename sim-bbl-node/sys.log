@@ -3,3 +3,64 @@ INFO: 2022/03/24 20:29:42 main.go:35: starting to read config file
 INFO: 2022/03/24 20:29:42 main.go:42: starting to mine, mining interval:5s
 INFO: 2022/03/24 20:29:42 rpc.go:108: starting prc server on port: 10000
 INFO: 2022/03/24 20:29:47 main.go:47: generate block, height: 1
+INFO: 2022/03/28 09:52:39 main.go:24: starting to open database
+INFO: 2022/03/28 09:52:39 main.go:37: starting to read config file
+INFO: 2022/03/28 09:52:39 main.go:44: starting to mine, mining interval:5s
+INFO: 2022/03/28 09:52:39 rpc.go:111: starting prc server on port: 10000
+BLOCK_INFO: 2022/03/28 09:52:44 main.go:49: generate block, height: 1
+BLOCK_INFO: 2022/03/28 09:52:49 main.go:49: generate block, height: 2
+BLOCK_INFO: 2022/03/28 09:52:54 main.go:49: generate block, height: 3
+BLOCK_INFO: 2022/03/28 09:52:59 main.go:49: generate block, height: 4
+BLOCK_INFO: 2022/03/28 09:53:04 main.go:49: generate block, height: 5
+BLOCK_INFO: 2022/03/28 09:53:09 main.go:49: generate block, height: 6
+BLOCK_INFO: 2022/03/28 09:53:14 main.go:49: generate block, height: 7
+BLOCK_INFO: 2022/03/28 09:53:19 main.go:49: generate block, height: 8
+BLOCK_INFO: 2022/03/28 09:53:24 main.go:49: generate block, height: 9
+BLOCK_INFO: 2022/03/28 09:53:29 main.go:49: generate block, height: 10
+BLOCK_INFO: 2022/03/28 09:53:34 main.go:49: generate block, height: 11
+BLOCK_INFO: 2022/03/28 09:53:39 main.go:49: generate block, height: 12
+BLOCK_INFO: 2022/03/28 09:53:44 main.go:49: generate block, height: 13
+INFO: 2022/03/28 09:58:34 main.go:24: starting to open database
+INFO: 2022/03/28 09:58:34 main.go:37: starting to read config file
+INFO: 2022/03/28 09:58:34 main.go:44: starting to mine, mining interval:5s
+INFO: 2022/03/28 09:58:34 rpc.go:111: starting prc server on port: 10000
+BLOCK_INFO: 2022/03/28 09:58:52 main.go:49: generate block, height: 1
+INFO: 2022/03/28 09:59:59 main.go:24: starting to open database
+INFO: 2022/03/28 09:59:59 main.go:37: starting to read config file
+INFO: 2022/03/28 09:59:59 main.go:44: starting to mine, mining interval:5s
+INFO: 2022/03/28 09:59:59 rpc.go:111: starting prc server on port: 10000
+SUBMISSION_ERROR: 2022/03/28 10:00:03 rpc.go:84: blockhash not found in database error, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+BLOCK_INFO: 2022/03/28 10:00:04 main.go:49: generate block, height: 1
+BLOCK_INFO: 2022/03/28 10:00:09 main.go:49: generate block, height: 2
+BLOCK_INFO: 2022/03/28 10:00:14 main.go:49: generate block, height: 3
+BLOCK_INFO: 2022/03/28 10:00:19 main.go:49: generate block, height: 4
+BLOCK_INFO: 2022/03/28 10:00:24 main.go:49: generate block, height: 5
+BLOCK_INFO: 2022/03/28 10:00:29 main.go:49: generate block, height: 6
+BLOCK_INFO: 2022/03/28 10:00:34 main.go:49: generate block, height: 7
+INFO: 2022/03/28 10:25:45 main.go:24: starting to open database
+INFO: 2022/03/28 10:25:45 main.go:37: starting to read config file
+INFO: 2022/03/28 10:25:45 main.go:44: starting to mine, mining interval:5s
+INFO: 2022/03/28 10:25:45 rpc.go:122: starting prc server on port: 10000
+BLOCK_INFO: 2022/03/28 10:25:50 main.go:49: generate block, height: 1
+BLOCK_INFO: 2022/03/28 10:25:55 main.go:49: generate block, height: 2
+OUTDATED_ERROR: 2022/03/28 10:25:56 rpc.go:82: blockhash is outdated, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+BLOCK_INFO: 2022/03/28 10:26:00 main.go:49: generate block, height: 3
+INFO: 2022/03/28 10:47:00 main.go:24: starting to open database
+INFO: 2022/03/28 10:47:00 main.go:37: starting to read config file
+INFO: 2022/03/28 10:47:00 main.go:44: starting to mine, mining interval:5s
+INFO: 2022/03/28 10:47:00 rpc.go:126: starting prc server on port: 10000
+OUTDATED_ERROR: 2022/03/28 10:47:03 rpc.go:82: blockhash is outdated, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+BLOCK_INFO: 2022/03/28 10:47:05 main.go:49: generate block, height: 1
+BLOCK_INFO: 2022/03/28 10:47:10 main.go:49: generate block, height: 2
+INFO: 2022/03/28 10:48:23 main.go:24: starting to open database
+INFO: 2022/03/28 10:48:23 main.go:37: starting to read config file
+INFO: 2022/03/28 10:48:23 main.go:44: starting to mine, mining interval:5s
+INFO: 2022/03/28 10:48:23 rpc.go:126: starting prc server on port: 10000
+OUTDATED_ERROR: 2022/03/28 10:48:28 rpc.go:82: blockhash is outdated, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+BLOCK_INFO: 2022/03/28 10:48:28 main.go:49: generate block, height: 1
+BLOCK_INFO: 2022/03/28 10:48:33 main.go:49: generate block, height: 2
+OUTDATED_ERROR: 2022/03/28 10:48:34 rpc.go:82: blockhash is outdated, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+OUTDATED_ERROR: 2022/03/28 10:48:36 rpc.go:82: blockhash is outdated, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+OUTDATED_ERROR: 2022/03/28 10:48:36 rpc.go:82: blockhash is outdated, blockhash: 7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64
+BLOCK_INFO: 2022/03/28 10:48:38 main.go:49: generate block, height: 3
+BLOCK_INFO: 2022/03/28 10:48:43 main.go:49: generate block, height: 4
