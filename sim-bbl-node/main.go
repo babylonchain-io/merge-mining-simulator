@@ -46,7 +46,7 @@ func main() {
 			time.Sleep(t) //* time.Second
 			i = i + 1
 			bc.Addblock([]byte(string(i)))
-			logger.Info.Println("generate block, height:", i)
+			logger.BlockInfo.Println("generate block, height:", i)
 			//mychan1 <- "output1"
 		}
 	}()
@@ -79,6 +79,11 @@ func main() {
 		if line == "show_error_aux_submission" {
 			logger.ShowErrorAuxSubmission()
 		}
+
+		if line == "show_all" {
+			logger.ShowAll()
+		}
+
 	}
 
 }
