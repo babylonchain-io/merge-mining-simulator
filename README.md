@@ -27,7 +27,7 @@ slot_num = rand % merkle_size
 
 ## Simulators
 
-### Bbl node Simulator
+### Bbl node simulator
 
 ```
 $ cd ./sim-bbl-node
