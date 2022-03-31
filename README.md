@@ -62,18 +62,16 @@ Sim-merge-miner is used to capture the functionalities of the mining pool.
 
 Generate an auxiliary block
 
-#### Parameter 
 
 | name         | type   | description     |
 | ------------ | ------ | --------------- |
 | paytoaddress | string | miner's address |
 
 
-### AuxPow Structure
+### submitauxblock
 
 Submit the solved auxpow of an auxiliary block
-
-#### Parameter 
+ 
 
 | name      | type   | description                               |
 | --------- | ------ | ----------------------------------------- |
