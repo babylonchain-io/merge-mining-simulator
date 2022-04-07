@@ -177,20 +177,27 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int, bblBits uint32) bool {
 		return false
 	}
 
-	// check if coinbase is in btc block header
-	if !ap.CoinbaseInBtcHeader() {
+	// check if aux block hash in merkle root
+	if !ap.AuxBlockHashInMerkleRoot() {
 		logger.Error.Println("auxpow checking failed, merkle root failed, coinbase is not in btc block header")
 		return false
 	}
 
+	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
+	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
+	auxRootHash := ap.GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
+
 	// check if block is in Coinbase
-	if !ap.AuxBlockHashInCoinbase(hashAuxBlock) {
+	if !ap.MerkleRootInCoinbase(hashAuxBlock, &auxRootHash) {
 		logger.Error.Println("auxpow checking failed, hashAuxBlock is not in coinbase")
 		return false
 	}
 
+	// reverse the auxRootHash
+	merkleHeight := len(ap.AuxMerkleBranch)
+
 	// check if auxwork is in mining merkle tree
-	if !ap.AuxWorkInMiningMerkleTree(hashAuxBlock, chainID) {
+	if !ap.AuxWorkInMiningMerkleTree(hashAuxBlock, chainID, merkleHeight) {
 		logger.Error.Println("auxpow checking failed, auxwork not in merkle tree")
 		return false
 	}
@@ -199,17 +206,22 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int, bblBits uint32) bool {
 }
 
 // Coinbase in Btc Header
-func (ap *AuxPow) CoinbaseInBtcHeader() bool {
-	return GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) == ap.ParBlockHeader.MerkleRoot
+func (ap *AuxPow) AuxBlockHashInMerkleRoot() bool {
+	return ap.GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) == ap.ParBlockHeader.MerkleRoot
 }
 
+// Coinbase in Btc Header
+//func (ap *AuxPow) CoinbaseInBtcHeader() bool {
+//	return GetMerkleRoot(ap.ParCoinbaseTx.Hash(), ap.ParCoinBaseMerkle, ap.ParMerkleIndex) == ap.ParBlockHeader.MerkleRoot
+//}
+
 // AuxBlock Hash is not in coinbase
-func (ap *AuxPow) AuxBlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
+func (ap *AuxPow) MerkleRootInCoinbase(hashAuxBlock *common.Uint256, auxRootHash *common.Uint256) bool {
 
 	//reverse the hashAuxBlock
-	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
-	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
-	auxRootHash := GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
+	//hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
+	//hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
+	//auxRootHash := ap.GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
 
 	script := ap.ParCoinbaseTx.TxIn[0].SignatureScript
 	scriptStr := hex.EncodeToString(script)
@@ -241,11 +253,11 @@ func (ap *AuxPow) AuxBlockHashInCoinbase(hashAuxBlock *common.Uint256) bool {
 }
 
 // Aux work in the merkle tree
-func (ap *AuxPow) AuxWorkInMiningMerkleTree(hashAuxBlock *common.Uint256, chainID int) bool {
+func (ap *AuxPow) AuxWorkInMiningMerkleTree(hashAuxBlock *common.Uint256, chainID int, merkleHeight int) bool {
 
 	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
 	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
-	auxRootHash := GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
+	auxRootHash := ap.GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
 
 	script := ap.ParCoinbaseTx.TxIn[0].SignatureScript
 	scriptStr := hex.EncodeToString(script)
@@ -255,21 +267,21 @@ func (ap *AuxPow) AuxWorkInMiningMerkleTree(hashAuxBlock *common.Uint256, chainI
 	rootHashIndex := strings.Index(scriptStr, auxRootHashReverseStr)
 
 	//Aux work merkle tree
-	size := binary.LittleEndian.Uint32(script[rootHashIndex/2 : rootHashIndex/2+4])
-	merkleHeight := len(ap.AuxMerkleBranch)
-	if size != uint32(1<<uint32(merkleHeight)) {
-		//return false
-	}
+	//size := binary.LittleEndian.Uint32(script[rootHashIndex/2 : rootHashIndex/2+4])
+	//merkleHeight := len(ap.AuxMerkleBranch)
+	//if size != uint32(1<<uint32(merkleHeight)) {
+	//	//return false
+	//}
 
 	nonce := binary.LittleEndian.Uint32(script[rootHashIndex/2+4 : rootHashIndex/2+8])
-	if ap.AuxMerkleIndex != GetExpectedIndex(nonce, chainID, merkleHeight) {
+
+	if ap.AuxMerkleIndex != ap.GetExpectedIndex(nonce, chainID, merkleHeight) {
 		return false
 	}
-
 	return true
 }
 
-func GetMerkleRoot(hash common.Uint256, merkleBranch []common.Uint256, index int) common.Uint256 {
+func (ap *AuxPow) GetMerkleRoot(hash common.Uint256, merkleBranch []common.Uint256, index int) common.Uint256 {
 	if index == -1 {
 		return common.Uint256{}
 	}
@@ -289,7 +301,7 @@ func GetMerkleRoot(hash common.Uint256, merkleBranch []common.Uint256, index int
 	return hash
 }
 
-func GetExpectedIndex(nonce uint32, chainID, h int) int {
+func (ap *AuxPow) GetExpectedIndex(nonce uint32, chainID, h int) int {
 	rand := nonce
 	rand = rand*1103515245 + 12345
 	rand += uint32(chainID)
