@@ -68,7 +68,7 @@ func TestAuxBlockHashInMerkleRoot_Assert_True(t *testing.T) {
 	auxpow.Deserialize(bytes.NewReader(buf))
 
 	// check if coinbase is in btc block header
-	if auxpow.AuxBlockHashInMerkleRoot() != true {
+	if res := auxpow.AuxBlockHashInMerkleRoot(); res != true {
 		t.Error("auxpow checking failed, merkle root failed, coinbase is not in btc block header")
 	}
 }
@@ -80,8 +80,10 @@ func TestAuxBlockHashInMerkleRoot_Assert_False(t *testing.T) {
 	buf, _ := common.HexStringToBytes(normalAuxPowHex)
 	auxpow.Deserialize(bytes.NewReader(buf))
 
-	//here, we set a CoinBaseMerkle.
-	auxpow.ParCoinBaseMerkle = make([]common.Uint256, 0)
+	//auxpow.ParCoinBaseMerkle = make([]common.Uint256, 0)
+	//here, we set a ParMerkleIndex.
+	auxpow.ParMerkleIndex = -1
+
 	if auxpow.AuxBlockHashInMerkleRoot() != true {
 		t.Error("auxpow checking failed, merkle root failed, coinbase is not in btc block header")
 	}
@@ -102,13 +104,11 @@ func TestMerkleRootInCoinbase_Assert_True(t *testing.T) {
 		t.Error("auxpow checking failed, hex string to uint256 failed")
 	}
 
-	// check if block is in Coinbase
-	//hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
-	//hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
-
+	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
+	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
 	auxRootHash := auxpow.GetMerkleRoot(*hashAuxBlock, auxpow.AuxMerkleBranch, auxpow.AuxMerkleIndex)
 
-	if auxpow.MerkleRootInCoinbase(hashAuxBlock, &auxRootHash) != true {
+	if auxpow.MerkleRootInCoinbase(&auxRootHash) != true {
 		t.Error("auxpow checking failed,  merkle root is not in coinbase")
 	}
 }
@@ -121,19 +121,9 @@ func TestMerkleRootInCoinbase_Assert_False(t *testing.T) {
 	buf, _ := common.HexStringToBytes(normalAuxPowHex)
 	auxpow.Deserialize(bytes.NewReader(buf))
 
-	var hashAuxBlock *common.Uint256
-	blockHashHex := "7926398947f332fe534b15c628ff0cd9dc6f7d3ea59c74801dc758ac65428e64"
-	hashAuxBlock, err := common.Uint256FromHexString(blockHashHex)
-	if err != nil {
-		t.Error("auxpow checking failed, hex string to uint256 failed")
-	}
-
-	// check if block is in Coinbase
-	hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
-	hashAuxBlock, _ = common.Uint256FromBytes(hashAuxBlockBytes)
 	auxRootHash := common.Uint256{}
 
-	if auxpow.MerkleRootInCoinbase(hashAuxBlock, &auxRootHash) != true {
+	if auxpow.MerkleRootInCoinbase(&auxRootHash) != true {
 		t.Error("auxpow checking failed,  merkle root is not in coinbase")
 	}
 }
