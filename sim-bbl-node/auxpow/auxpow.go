@@ -188,7 +188,7 @@ func (ap *AuxPow) Check(blockHashHex string, chainID int, bblBits uint32) bool {
 	auxRootHash := ap.GetMerkleRoot(*hashAuxBlock, ap.AuxMerkleBranch, ap.AuxMerkleIndex)
 
 	// check if block is in Coinbase
-	if !ap.MerkleRootInCoinbase(hashAuxBlock, &auxRootHash) {
+	if !ap.MerkleRootInCoinbase(&auxRootHash) {
 		logger.Error.Println("auxpow checking failed, hashAuxBlock is not in coinbase")
 		return false
 	}
@@ -216,7 +216,7 @@ func (ap *AuxPow) AuxBlockHashInMerkleRoot() bool {
 //}
 
 // AuxBlock Hash is not in coinbase
-func (ap *AuxPow) MerkleRootInCoinbase(hashAuxBlock *common.Uint256, auxRootHash *common.Uint256) bool {
+func (ap *AuxPow) MerkleRootInCoinbase(auxRootHash *common.Uint256) bool {
 
 	//reverse the hashAuxBlock
 	//hashAuxBlockBytes := common.BytesReverse(hashAuxBlock.Bytes())
